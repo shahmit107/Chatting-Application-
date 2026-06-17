@@ -1,0 +1,4 @@
+/* App.css - Entry point for frontend modular styling sheets */
+@import "./styles/Globals.css";
+@import "./styles/Auth.css";
+@import "./styles/Chat.css";

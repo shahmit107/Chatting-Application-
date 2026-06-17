@@ -14,9 +14,8 @@ import getOldMessages from "../utils/utils.getMessagesHistory.js";
 export async function join(message, ws, users) {
 
   const roomId = message.payload?.roomId;
-  const userName = message.payload?.userName;
 
-  if (!roomId?.trim() || !userName?.trim()) {
+  if (!roomId?.trim()) {
     let err = ""
     sendError(ws, err, "roomID and userName are required.")
     return;
@@ -29,7 +28,6 @@ export async function join(message, ws, users) {
   }
 
   ws.roomId = roomId;
-  ws.userName = userName;
 
   if (!users.has(roomId)) {
     users.set(roomId, new Set());
@@ -43,7 +41,7 @@ export async function join(message, ws, users) {
   };
 
   const userRoom = await userModel.findOneAndUpdate(
-    { userName: ws.userName }, // filter
+    { _id: ws.userId }, // filter
     { $addToSet: { joinedRooms: ws.roomId } }, // insert the data
     {
       returnDocument: "after", //return the user document after the room has been added

@@ -1,0 +1,248 @@
+/* Authentication Layout */
+.auth-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  background: #050505;
+  padding: 1.5rem;
+  overflow: hidden;
+}
+
+/* Ambient glow decorations */
+.auth-background {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.auth-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.08;
+}
+
+.auth-glow-1 {
+  top: 10%;
+  left: 15%;
+  width: 25rem;
+  height: 25rem;
+  background: #50c878;
+}
+
+.auth-glow-2 {
+  bottom: 10%;
+  right: 15%;
+  width: 30rem;
+  height: 30rem;
+  background: #3b82f6;
+}
+
+/* Auth Header */
+.auth-header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 2rem;
+}
+
+.auth-logo {
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  border: 1px solid #303030;
+  border-radius: 0.45rem;
+  color: #eeeeee;
+  font-size: 1.25rem;
+  font-weight: 700;
+  background: #0c0c0c;
+}
+
+.auth-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: #eeeeee;
+}
+
+/* Card and Fields */
+.auth-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 26rem;
+}
+
+.auth-card {
+  border: 1px solid #1d1d1d;
+  border-radius: 0.45rem;
+  background: #0c0c0c;
+  padding: 2.25rem 2rem;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+.auth-card h2 {
+  margin: 0 0 0.4rem 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #eeeeee;
+  text-align: center;
+}
+
+.auth-subtitle {
+  margin: 0 0 1.75rem 0;
+  font-size: 0.88rem;
+  color: #8e8e8e;
+  text-align: center;
+}
+
+.auth-form {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.auth-field {
+  display: grid;
+  gap: 0.4rem;
+  color: #9d9d9d;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+/* Form Inputs & Buttons */
+input {
+  width: 100%;
+  min-height: 2.45rem;
+  border: 1px solid #262626;
+  border-radius: 0.35rem;
+  outline: 0;
+  background: #101010;
+  color: #eeeeee;
+  padding: 0 0.75rem;
+}
+
+input:focus {
+  border-color: #666666;
+}
+
+.auth-btn {
+  margin-top: 0.5rem;
+  min-height: 2.6rem;
+  border-radius: 0.35rem;
+  background: #eeeeee;
+  color: #050505;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+
+.auth-btn:hover:not(:disabled) {
+  background: #ffffff;
+}
+
+.auth-switch {
+  margin-top: 1.5rem;
+  font-size: 0.86rem;
+  color: #8e8e8e;
+  text-align: center;
+}
+
+.switch-link {
+  background: transparent;
+  color: #eeeeee;
+  padding: 0;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.switch-link:hover {
+  color: #ffffff;
+}
+
+/* Warnings and Notices */
+.notice {
+  border-left: 3px solid #d46a6a;
+  background: #160d0d;
+  color: #f3c6c6;
+  padding: 0.7rem 0.8rem;
+  font-size: 0.9rem;
+}
+
+.auth-error {
+  margin: 0 0 1.25rem 0;
+  border-radius: 0.35rem;
+}
+
+.auth-success {
+  margin: 0 0 1.25rem 0;
+  border-left: 3px solid #50c878;
+  background: #0d160e;
+  color: #c6f3d5;
+  padding: 0.7rem 0.8rem;
+  font-size: 0.9rem;
+  border-radius: 0.35rem;
+}
+
+/* Modal Popup Styles */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 150;
+  padding: 1.5rem;
+}
+
+.modal-card {
+  width: 100%;
+  max-width: 24rem;
+  background: #0c0c0c;
+  border: 1px solid #1d1d1d;
+  border-radius: 0.45rem;
+  padding: 2.25rem 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+}
+
+.modal-card h3 {
+  margin: 0 0 0.35rem 0;
+  font-size: 1.22rem;
+  font-weight: 700;
+  color: #eeeeee;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+}
+
+.cancel-btn {
+  min-height: 2.5rem;
+  border: 1px solid #2a2a2a;
+  border-radius: 0.35rem;
+  background: #101010;
+  color: #eeeeee;
+  padding: 0 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+
+.cancel-btn:hover {
+  background: #181818;
+}

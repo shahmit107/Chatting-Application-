@@ -6,11 +6,33 @@ import sendError from "./utils/utils.sendError.js";
 import switchRoom from "./handlers/handlers.switchRoom.js";
 import disconnect from "./handlers/handlers.disconnect.js";
 import authRouter from "./routes/auth.routes.js";
+import verifyAccessToken from "./utils/utils.verifyAccessToken.js";
 
 const users = new Map();
 
 export function registerSocketApp(wss) {
-  wss.on("connection", (ws) => {
+  
+  wss.on("connection", async (ws, req) => {
+
+    const url = new URL(req.url, `http://${req.headers.host}`)
+    const accessToken = url.searchParams.get("token")
+
+    if (!accessToken) {
+      sendError(ws, "", "LOGIN REQUIRED");
+      ws.close();
+      return;
+    }
+    const user = await verifyAccessToken(accessToken);
+
+    if (!user) {
+      sendError(ws, null, "INVALID OR EXPIRED TOKEN");
+      ws.close();
+      return;
+    }
+
+    ws.userId = user._id.toString();
+    ws.userName = user.userName;
+
     ws.on("error", console.error);
 
     ws.on("message", async (rawMessage) => {
@@ -24,7 +46,7 @@ export function registerSocketApp(wss) {
 
       try {
         if (message.type === "join") {
-         await join(message, ws, users);
+          await join(message, ws, users);
         }
       } catch (err) {
         sendError(ws, err, "JOINING ERROR");
@@ -42,7 +64,7 @@ export function registerSocketApp(wss) {
 
       try {
         if (message.type === "switch_Room") {
-          await switchRoom(message, ws, users)
+          await switchRoom(message, ws, users);
         }
       } catch (err) {
         sendError(ws, err, "SWITCHING ERROR");
@@ -52,6 +74,6 @@ export function registerSocketApp(wss) {
 
     ws.on("close", () => {
       disconnect(ws, users);
-      });
+    });
   });
 }

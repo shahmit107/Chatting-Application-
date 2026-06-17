@@ -38,7 +38,7 @@ export async function chat(message, ws, users) {
       time: indianTime,
     },
   };
-  await messageModel.insertOne({
+  await messageModel.create({
     roomId: ws.roomId,
     userName: ws.userName,
     message: chatMessage,
