@@ -29,8 +29,10 @@ export function useAuth() {
         },
       });
 
+      console.log("fetchUserData status:", res.status);
       if (res.ok) {
         const data = await res.json();
+        console.log("fetchUserData data:", data);
         const userData = data.payload?.user;
         if (userData) {
           setUser(userData);
@@ -42,14 +44,15 @@ export function useAuth() {
       // If the server explicitly rejected the token, we MUST return false
       // to trigger the refresh token flow, instead of falling back to local storage.
       if (res.status === 401 || res.status === 403) {
+        console.log("fetchUserData rejected with 401/403 status");
         return false;
       }
 
       // Fallback to local storage if API returns 500 or invalid user format
-      const phone = localStorage.getItem("userPhone");
-      if (phone) {
-        const storedName = localStorage.getItem(`userName_${phone}`) || `User_${phone.slice(-4)}`;
-        const fallbackUser = { userName: storedName, phoneNumber: phone };
+      const email = localStorage.getItem("email");
+      if (email) {
+        const storedName = localStorage.getItem(`userName_${email}`) || `User_${email.slice(-4)}`;
+        const fallbackUser = { userName: storedName, email: email };
         setUser(fallbackUser);
         setIsAuthenticated(true);
         return true;
@@ -59,11 +62,11 @@ export function useAuth() {
     } catch (err) {
       console.error("Fetch profile error:", err);
       // Fallback on network connection errors
-      const phone = localStorage.getItem("userPhone");
-      if (phone) {
+      const email = localStorage.getItem("email");
+      if (email) {
         const fallbackUser = {
-          userName: localStorage.getItem(`userName_${phone}`) || `User_${phone.slice(-4)}`,
-          phoneNumber: phone,
+          userName: localStorage.getItem(`userName_${email}`) || `User_${email.slice(-4)}`,
+          email: email,
         };
         setUser(fallbackUser);
         setIsAuthenticated(true);
@@ -99,7 +102,7 @@ export function useAuth() {
 
   function handleAuthFailure() {
     localStorage.removeItem("accessToken");
-    localStorage.removeItem("userPhone");
+    localStorage.removeItem("email");
     setUser(null);
     setAccessTokenState(null);
     setIsAuthenticated(false);
@@ -154,12 +157,46 @@ export function useAuth() {
     handleAuthFailure();
   }
 
+  // Delete account handler
+  async function handleDeleteAccount() {
+    if (!user || !user.email) {
+      alert("No logged in user found to delete.");
+      return;
+    }
+    const confirmed = window.confirm("Are you sure you want to permanently delete your account? This action cannot be undone.");
+    if (!confirmed) return;
+    const token = localStorage.getItem("accessToken");
+    try {
+      const res = await fetch("http://localhost:8080/api/auth/deleteAccount", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ email: user.email }),
+        credentials: "include",
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.type !== "error") {
+        alert("Account deleted successfully.");
+      } else {
+        alert(data.payload?.message || "Failed to delete account.");
+      }
+    } catch (err) {
+      console.error("Delete account request error:", err);
+      alert("Unable to connect to server. Please try again.");
+    }
+
+    handleAuthFailure();
+  }
+
   return {
     user,
     isAuthenticated,
     authLoading,
     handleLoginSuccess,
     handleLogout,
+    handleDeleteAccount,
     handleAuthFailure,
   };
 }

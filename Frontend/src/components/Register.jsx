@@ -2,13 +2,13 @@ import { useState } from "react";
 
 /**
  * Register Component
- * Renders the registration form fields (DisplayName, PhoneNumber, Password)
+ * Renders the registration form fields (DisplayName, Email, Password)
  * and triggers the POST /api/auth/register request.
  */
 export function Register({ onRegisterSuccess, onToggleMode }) {
   // Input fields, notification messages, and loading states
   const [displayName, setDisplayName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -17,7 +17,7 @@ export function Register({ onRegisterSuccess, onToggleMode }) {
   // Form submit handler
   async function handleSubmit(e) {
     e.preventDefault();
-    if (!displayName.trim() || !phoneNumber.trim() || !password.trim()) {
+    if (!displayName.trim() || !email.trim() || !password.trim()) {
       setError("Please fill in all fields.");
       return;
     }
@@ -34,7 +34,7 @@ export function Register({ onRegisterSuccess, onToggleMode }) {
         },
         body: JSON.stringify({
           userName: displayName.trim(),
-          phoneNumber: phoneNumber.trim(),
+          email: email.trim(),
           password: password,
         }),
       });
@@ -45,7 +45,7 @@ export function Register({ onRegisterSuccess, onToggleMode }) {
         setSuccess("Registration successful! Redirecting to login...");
         
         // Cache display name in localStorage in case the server needs a local fallback
-        localStorage.setItem(`userName_${phoneNumber.trim()}`, displayName.trim());
+        localStorage.setItem(`userName_${email.trim()}`, displayName.trim());
         
         setTimeout(() => {
           onRegisterSuccess();
@@ -84,14 +84,14 @@ export function Register({ onRegisterSuccess, onToggleMode }) {
           />
         </label>
 
-        {/* Phone number field */}
+        {/* Email field */}
         <label className="auth-field">
-          <span>Phone Number</span>
+          <span>Email</span>
           <input
-            type="tel"
-            placeholder="Enter your phone number"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
+            type="email"
+            placeholder="Enter your Email Id"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             disabled={loading}
             required
           />

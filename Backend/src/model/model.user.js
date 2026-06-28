@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema(
       trim: true,
     },
 
-    phoneNumber: {
+    email: {
       type: String,
       required: true,
       unique: true,
@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
 
-    isPhoneVerified: {
+    isVerified: {
       type: Boolean,
       default: false,
     },
@@ -31,6 +31,12 @@ const userSchema = new mongoose.Schema(
     }, 
     refreshToken: {
         type: String
+    }, 
+    otp: {
+      type: String
+    }, 
+    expiresAt: {
+      type: String
     }
   },
   { timestamps: true }

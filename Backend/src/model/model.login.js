@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
 const loginSchema = new mongoose.Schema({
-    phoneNumber: {
-        type: Number,
-        required: [true, "Mobile number required."],
-        unique: [ true, "Number already exists."]
+    email: {
+        type: String,
+        required: [true, "Email required."],
+        unique: [ true, "Email already exists."]
     },
     password: {
         type: String,

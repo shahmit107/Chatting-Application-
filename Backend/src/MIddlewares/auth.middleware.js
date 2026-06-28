@@ -16,17 +16,26 @@ export default async function authMiddleware(req, res, next) {
 
     const isUserPresent = await userModel.findById(isTokenValid.userId).lean();
 
-    if(!isUserPresent) {
-      return res.status(401).send(
-        { 
-          type: "error",
-          payload: {
-            message: "User not found" 
-          } 
-        });
+    if (!isUserPresent.isVerified) {
+      return res.status(401).send({
+        type: "error",
+        payload: {
+          message: "User is not verified",
+        },
+      });
+    }
+
+    if (!isUserPresent) {
+      return res.status(401).send({
+        type: "error",
+        payload: {
+          message: "User not found",
+        },
+      });
     }
 
     req.userId = isTokenValid.userId;
+    await userModel.findOneAndUpdate({ email }, { isVerified: true });
     next();
   } catch (err) {
     return res.status(401).send({

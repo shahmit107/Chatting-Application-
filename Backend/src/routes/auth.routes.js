@@ -16,9 +16,16 @@ authRouter.post("/refresh", authController.refreshToken)
 // POST /api/auth.logout
 authRouter.post("/logout", authMiddleware, authController.logout)
 
-// POST /api/auth/send-otp
-// POST /api/auth/verify-otp
 // GET  /api/auth/me
 authRouter.get("/me", authMiddleware, authController.getMe);
+
+// POST /api/auth/sendOtp
+authRouter.post("/sendOtp", authController.sendOtp);
+
+// POST /api/auth/verifyOtp
+authRouter.post("/verifyOtp", authController.verifyOtp);
+
+// DELETE /api/auth/deleteAccount
+authRouter.delete("/deleteAccount", authController.deleteAccount);
 
 export default authRouter;

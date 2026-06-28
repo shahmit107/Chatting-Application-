@@ -26,6 +26,7 @@ export default function App() {
     authLoading,
     handleLoginSuccess,
     handleLogout,
+    handleDeleteAccount,
   } = useAuth();
 
   const chat = useChatSocket(isAuthenticated);
@@ -97,6 +98,7 @@ export default function App() {
         onClose={() => setSidebarOpen(false)}
         onSwitchRoom={handleSwitchRoom}
         onLogout={handleLogout}
+        onDeleteAccount={handleDeleteAccount}
       />
 
       {sidebarOpen && <div className="sidebar-backdrop" onClick={() => setSidebarOpen(false)} />}

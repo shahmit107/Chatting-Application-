@@ -13,6 +13,7 @@ export function Sidebar({
   onClose,
   onSwitchRoom,
   onLogout,
+  onDeleteAccount,
 }) {
   return (
     <aside className="sidebar" aria-label="Chat navigation">
@@ -34,12 +35,19 @@ export function Sidebar({
       {/* Render Active Users list */}
       <OnlineUsers onlineUsers={onlineUsers} />
       
-      {/* Render Logout option if handler is provided */}
-      {onLogout && (
+      {/* Render Delete Account and Logout options if handlers are provided */}
+      {(onDeleteAccount || onLogout) && (
         <div className="logout-btn-container">
-          <button className="logout-btn" onClick={onLogout} type="button">
-            Logout
-          </button>
+          {onDeleteAccount && (
+            <button className="delete-btn" onClick={onDeleteAccount} type="button">
+              Delete Permanently Account
+            </button>
+          )}
+          {onLogout && (
+            <button className="logout-btn" onClick={onLogout} type="button">
+              Logout
+            </button>
+          )}
         </div>
       )}
     </aside>

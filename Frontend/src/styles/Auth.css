@@ -246,3 +246,156 @@ input:focus {
 .cancel-btn:hover {
   background: #181818;
 }
+
+/* ──────── Login Mode Tabs ──────── */
+.login-mode-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  background: #101010;
+  border: 1px solid #1d1d1d;
+  border-radius: 0.4rem;
+  padding: 0.3rem;
+}
+
+.mode-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.55rem 0.75rem;
+  border: none;
+  border-radius: 0.3rem;
+  background: transparent;
+  color: #6e6e6e;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+
+.mode-tab:hover {
+  color: #aaaaaa;
+}
+
+.mode-tab-active {
+  background: #1d1d1d;
+  color: #eeeeee;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* ──────── OTP Sent Info ──────── */
+.otp-sent-info {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  padding: 0.7rem 0.85rem;
+  background: #0d160e;
+  border: 1px solid #1a2e1d;
+  border-radius: 0.35rem;
+  font-size: 0.82rem;
+  color: #a8d4b0;
+}
+
+.otp-sent-info strong {
+  color: #c6f3d5;
+  word-break: break-all;
+}
+
+/* ──────── OTP Expiry Timer ──────── */
+.otp-timer {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-left: auto;
+  padding: 0.2rem 0.55rem;
+  border-radius: 1rem;
+  background: rgba(80, 200, 120, 0.1);
+  border: 1px solid rgba(80, 200, 120, 0.2);
+  color: #50c878;
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.otp-timer-warning {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.25);
+  color: #ef4444;
+  animation: timer-pulse 1s ease-in-out infinite;
+}
+
+@keyframes timer-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* ──────── OTP Digit Inputs ──────── */
+.otp-inputs {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.55rem;
+}
+
+.otp-digit {
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  padding: 0;
+  min-height: 3rem;
+  border: 1px solid #262626;
+  border-radius: 0.4rem;
+  background: #101010;
+  color: #eeeeee;
+  caret-color: #50c878;
+  transition: border-color 200ms ease;
+}
+
+.otp-digit:focus {
+  border-color: #50c878;
+  box-shadow: 0 0 0 2px rgba(80, 200, 120, 0.12);
+}
+
+/* ──────── OTP Actions ──────── */
+.otp-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.25rem;
+}
+
+.otp-resend-btn,
+.otp-change-email-btn {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+
+.otp-resend-btn {
+  color: #50c878;
+}
+
+.otp-resend-btn:hover:not(:disabled) {
+  color: #6edd9a;
+}
+
+.otp-resend-btn:disabled {
+  color: #4a4a4a;
+  cursor: default;
+}
+
+.otp-change-email-btn {
+  color: #8e8e8e;
+  text-decoration: underline;
+}
+
+.otp-change-email-btn:hover {
+  color: #bbbbbb;
+}

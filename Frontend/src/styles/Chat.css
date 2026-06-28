@@ -169,6 +169,29 @@
   margin-top: auto;
 }
 
+.delete-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  min-height: 2.25rem;
+  border: 1px solid #3a1515;
+  border-radius: 0.35rem;
+  background: #1c0a0a;
+  color: #ff9999;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease;
+  margin-bottom: 0.5rem;
+}
+
+.delete-btn:hover {
+  background: #cc2424;
+  color: #ffffff;
+  border-color: #cc2424;
+}
+
 .logout-btn {
   display: flex;
   align-items: center;

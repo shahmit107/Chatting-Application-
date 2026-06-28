@@ -1,6 +1,7 @@
 import getOnlineUsers from "../utils/utils.online_users.js";
-import broadcaster  from "../utils/utils.broadcastToRoom.js";
+import broadcaster from "../utils/utils.broadcastToRoom.js";
 import getOldMessages from "../utils/utils.getMessagesHistory.js";
+import userModel from "../model/model.user.js";
 
 // Read old room from ws.roomId
 // Read new room from message payload
@@ -13,9 +14,14 @@ import getOldMessages from "../utils/utils.getMessagesHistory.js";
 // Update online users for new room
 
 export default async function switchRoom(message, ws, users) {
-
   const oldRoomId = ws.roomId;
   const newRoomId = message.payload.roomId;
+  const user = await userModel.findById(ws.userId); // returns the user
+  const isRoomJoined = user.joinedRooms.includes(newRoomId);
+  if (!isRoomJoined) {
+    sendError(ws, err, "First Join the Room " + newRoomId);
+    return;
+  }
   if (oldRoomId !== newRoomId) {
     users.get(oldRoomId)?.delete(ws); //remove the old id
 
@@ -46,6 +52,6 @@ export default async function switchRoom(message, ws, users) {
     ws.roomId = newRoomId; // setting the new id
     const roomId = newRoomId;
 
-    await getOldMessages(ws, newRoomId)
+    await getOldMessages(ws, newRoomId);
   }
 }
