@@ -127,6 +127,8 @@ export default function App() {
           roomId={chat.roomId}
           onMessageChange={chat.setMessage}
           onSend={chat.sendMessage}
+          onMediaSend={chat.handleMediaSend}
+          isUploading={chat.mediaUploading}
         />
       </section>
 

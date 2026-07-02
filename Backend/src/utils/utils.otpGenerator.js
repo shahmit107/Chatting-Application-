@@ -32,8 +32,8 @@ export function getOtpHtml(otp) {
           <!-- Header Area (Logo placeholder) -->
           <tr>
             <td align="center" valign="top" style="padding: 32px 32px 0 32px;">
-              <!-- Replace src with your hosted brand logo -->
-              <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=120&h=40&q=80" alt="Company Logo" width="120" style="display: block; font-weight: bold; color: #1e293b;" />
+              <!-- Echo brand logo -->
+              <div style="font-size: 28px; font-weight: 800; color: #2563eb; letter-spacing: -0.5px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">Echo</div>
             </td>
           </tr>
 
@@ -42,7 +42,7 @@ export function getOtpHtml(otp) {
             <td align="left" valign="top" style="padding: 32px;">
               <h1 style="margin: 0 0 16px 0; font-size: 22px; font-weight: 700; color: #0f172a; line-height: 28px;">Verify your identity</h1>
               <p style="margin: 0 0 24px 0; font-size: 15px; font-weight: 400; color: #475569; line-height: 24px;">
-                Please use the following verification code to complete your request. This code will expire in <strong>10 minutes</strong>.
+                Please use the following verification code to complete your request. This code will expire in <strong>5 minutes</strong>.
               </p>
 
               <!-- OTP Code Block -->
@@ -68,7 +68,7 @@ export function getOtpHtml(otp) {
           <tr>
             <td align="center" valign="top" style="padding: 0 32px 32px 32px; border-top: 1px solid #f1f5f9;">
               <p style="margin: 24px 0 4px 0; font-size: 12px; font-weight: 400; color: #94a3b8;">
-                &copy; 2026 YourCompany Inc. All rights reserved.
+                &copy; 2026 Echo Inc. All rights reserved.
               </p>
               <p style="margin: 0; font-size: 12px; font-weight: 400; color: #94a3b8;">
                 123 Tech Street, Suite 400, San Francisco, CA 94107

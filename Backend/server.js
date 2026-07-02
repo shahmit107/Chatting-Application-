@@ -7,6 +7,7 @@ import config from "./src/config/config.js";
 import express from "express";
 import cors from "cors";
 import authRouter from "./src/routes/auth.routes.js";
+import mediaRouter from "./src/routes/media.routes.js";
 import cookieParser from "cookie-parser";
 
 try {
@@ -20,6 +21,7 @@ try {
 );
   app.use(cookieParser())
   app.use("/api/auth/", authRouter)
+  app.use("/api/media/upload", mediaRouter)
 
   const server = app.listen(config.PORT, "0.0.0.0", ()=> {
     console.log("SERVER IS RUNNING ON 8080")

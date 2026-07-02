@@ -18,6 +18,7 @@ export function useChatSocket(isAuthenticated) {
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [joinedRooms, setJoinedRooms] = useState([]);
   const [notice, setNotice] = useState("");
+  const [mediaUploading, setMediaUploading] = useState(false);
 
   // Refs for tracking values across renders without re-triggering effects
   const roomIdRef = useRef("");
@@ -189,9 +190,87 @@ export function useChatSocket(isAuthenticated) {
 
     if (!nextMessage) return;
 
-    if (sendSocketMessage("chat", { message: nextMessage })) {
+    if (sendSocketMessage("chat", { messageType: "text", message: nextMessage })) {
       setMessage("");
       setNotice("");
+    }
+  }
+
+  // Send a media message (image/video/document/audio) via HTTP upload + WebSocket broadcast
+  async function handleMediaSend(event, mediaType) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // Reset the input value so selecting the same file again triggers change event
+    event.target.value = "";
+
+    const fieldNames = {
+      image: "image",
+      video: "video",
+      document: "file",
+      audio: "audio",
+    };
+
+    const fieldName = fieldNames[mediaType];
+    if (!fieldName) {
+      setNotice("Unsupported media type.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append(fieldName, file);
+
+    const token = localStorage.getItem("accessToken");
+    const endpoints = {
+      image: "http://localhost:8080/api/media/upload/image",
+      video: "http://localhost:8080/api/media/upload/video",
+      document: "http://localhost:8080/api/media/upload/document",
+      audio: "http://localhost:8080/api/media/upload/audio",
+    };
+
+    const endpoint = endpoints[mediaType];
+    if (!endpoint) {
+      setNotice("Unsupported media type.");
+      return;
+    }
+
+    // Check if the WebSocket is connected before uploading
+    if (!socketReady) {
+      setNotice("Cannot send files: Chat server is not connected.");
+      return;
+    }
+
+    try {
+      setNotice("");
+      setMediaUploading(true);
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.type === "success") {
+        sendSocketMessage("chat", {
+          messageType: data.payload.messageType,
+          mediaUrl: data.payload.mediaUrl,
+          cloudinaryPublicId: data.payload.cloudinaryPublicId,
+          fileName: data.payload.fileName,
+          mimeType: data.payload.mimeType,
+          fileSize: data.payload.fileSize,
+        });
+      } else {
+        const errMsg = data.payload?.error || data.payload?.message || "Failed to upload file.";
+        setNotice(errMsg);
+        console.error(`${mediaType} upload error:`, errMsg);
+      }
+    } catch (err) {
+      setNotice(`Unable to connect to server for ${mediaType} upload.`);
+      console.error(`${mediaType} upload connection error:`, err);
+    } finally {
+      setMediaUploading(false);
     }
   }
 
@@ -225,6 +304,8 @@ export function useChatSocket(isAuthenticated) {
     userName,
     joinRoom,
     sendMessage,
+    handleMediaSend,
+    mediaUploading,
     setDraftRoomId,
     setMessage,
     setUserName,

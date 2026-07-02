@@ -436,6 +436,74 @@
   padding: 0;
 }
 
+.chat-image-container {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+
+.image-download-action-btn {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: rgba(15, 15, 18, 0.75);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.35rem;
+  color: #dddddd;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 180ms ease, background 180ms ease, transform 180ms ease;
+  transform: translateY(2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.chat-image-container:hover .image-download-action-btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.image-download-action-btn:hover {
+  background: rgba(25, 25, 30, 0.9);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.composer-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.media-upload-btn {
+  display: grid;
+  place-items: center;
+  min-height: 2.8rem;
+  min-width: 2.8rem;
+  height: 2.8rem;
+  width: 2.8rem;
+  border-radius: 50%;
+  background: #111112;
+  border: 1px solid #222224;
+  color: #888888;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transition: all 180ms ease;
+  flex-shrink: 0;
+}
+
+.media-upload-btn:hover {
+  color: #eeeeee;
+  border-color: #555557;
+  background: #18181a;
+}
+
 .composer input {
   flex: 1;
   background: #111112;
@@ -596,6 +664,13 @@
     min-height: 2.4rem;
     padding: 0.5rem 1rem;
     border-radius: 1.5rem;
+  }
+
+  .media-upload-btn {
+    min-height: 2.4rem;
+    min-width: 2.4rem;
+    height: 2.4rem;
+    width: 2.4rem;
   }
 
   .composer button {

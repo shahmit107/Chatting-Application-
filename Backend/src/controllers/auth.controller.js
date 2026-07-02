@@ -11,7 +11,6 @@ import { sendEmail } from "../services/email.service.js";
 import { otpGenerator, getOtpHtml } from "../utils/utils.otpGenerator.js";
 import otpModel from "../model/model.otp.js";
 import { completeLogin } from "../utils/utils.completeLogin.js";
-
 export async function register(req, res) {
   try {
     const { userName, email, password } = req.body;
@@ -410,7 +409,9 @@ export async function verifyOtp(req, res) {
 
   await otpModel.findOneAndDelete({ email });
   const users = await userModel.findOne({ email });
-  await completeLogin(users, res);
+  users.isVerified = true;
+  users.save();
+  return await completeLogin(users, res);
 }
 
 export async function deleteAccount(req, res) {

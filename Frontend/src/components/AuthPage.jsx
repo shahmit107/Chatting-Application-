@@ -21,8 +21,13 @@ export function AuthPage({ onLoginSuccess }) {
       
       {/* App brand header */}
       <div className="auth-header">
-        <div className="auth-logo">#</div>
-        <h1>Antigravity Chat</h1>
+        <img 
+          src="/echo_logo.png" 
+          alt="Echo Logo" 
+          className="auth-brand-logo" 
+          style={{ width: "3.5rem", height: "3.5rem", borderRadius: "50%", objectFit: "cover", border: "1px solid #303030" }} 
+        />
+        <h1>Echo</h1>
       </div>
 
       {/* Render the appropriate form based on toggled state */}

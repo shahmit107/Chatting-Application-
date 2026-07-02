@@ -50,6 +50,22 @@ if(!process.env.EMAIL_APP_PASSWORD) {
     throw new Error("EMAIL_APP_PASSWORD is not defined in the environment variables");
 }
 
+if(!process.env.CLOUDINARY_URL) {
+    throw new Error("CLOUDINARY_URL is not defined in the environment variables");
+}
+
+if(!process.env.CLOUDINARY_API_SECRET) {
+    throw new Error("CLOUDINARY_API_SECRET is not defined in the environment variables");
+}
+
+if(!process.env.CLOUDINARY_API_KEY) {
+    throw new Error("CLOUDINARY_API_KEY is not defined in the environment variables");
+}
+
+if(!process.env.CLOUD_NAME) {
+    throw new Error("CLOUD_NAME is not defined in the environment variables");
+}
+
 const config = {
     MONGO_URI: process.env.MONGO_URI,
     PORT: process.env.WS_PORT,
@@ -62,7 +78,11 @@ const config = {
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
     GOOGLE_REFRESH_TOKEN: process.env.GOOGLE_REFRESH_TOKEN,
     GOOGLE_USER: process.env.GOOGLE_USER,
-    EMAIL_APP_PASSWORD: process.env.EMAIL_APP_PASSWORD
+    EMAIL_APP_PASSWORD: process.env.EMAIL_APP_PASSWORD,
+    CLOUDINARY_URL: process.env.CLOUDINARY_URL,
+    CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
+    CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
+    CLOUD_NAME: process.env.CLOUD_NAME
 }
 
 export default config;

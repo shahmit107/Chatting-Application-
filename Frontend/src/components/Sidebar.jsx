@@ -1,4 +1,3 @@
-import { OnlineUsers } from "./OnlineUsers";
 import { RoomList } from "./RoomList";
 
 /**
@@ -19,7 +18,12 @@ export function Sidebar({
     <aside className="sidebar" aria-label="Chat navigation">
       {/* Brand logo, user details, and mobile drawer close button */}
       <div className="brand">
-        <span className="brand-mark">#</span>
+        <img 
+          src="/echo_logo.png" 
+          alt="Echo Logo" 
+          className="brand-logo" 
+          style={{ width: "2.1rem", height: "2.1rem", borderRadius: "50%", objectFit: "cover", border: "1px solid #303030" }} 
+        />
         <div>
           <h1>Rooms</h1>
           <p>{currentUserName || "Pick a name"}</p>
@@ -31,9 +35,6 @@ export function Sidebar({
 
       {/* Render Room List */}
       <RoomList joinedRooms={joinedRooms} roomId={roomId} onSwitchRoom={onSwitchRoom} />
-      
-      {/* Render Active Users list */}
-      <OnlineUsers onlineUsers={onlineUsers} />
       
       {/* Render Delete Account and Logout options if handlers are provided */}
       {(onDeleteAccount || onLogout) && (

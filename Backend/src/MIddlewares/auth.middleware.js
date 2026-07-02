@@ -35,7 +35,7 @@ export default async function authMiddleware(req, res, next) {
     }
 
     req.userId = isTokenValid.userId;
-    await userModel.findOneAndUpdate({ email }, { isVerified: true });
+    //await userModel.findOneAndUpdate({ id }, { isVerified: true });
     next();
   } catch (err) {
     return res.status(401).send({
