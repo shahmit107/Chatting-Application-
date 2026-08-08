@@ -86,54 +86,6 @@ All media is uploaded to **Cloudinary** via protected REST endpoints, then the r
 | `cors` | Cross-origin resource sharing configuration |
 | `dotenv` | Environment variable loading |
 
----
-
-## 🏗️ Architecture Overview
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                     FRONTEND (React)                     │
-│                                                          │
-│  ┌──────────┐   ┌───────────┐   ┌────────────────────┐  │
-│  │ useAuth  │   │useWebSocket│  │  useChatSocket     │  │
-│  │          │   │            │  │  (messages, rooms,  │  │
-│  │ login    │   │ connect    │  │   media upload,     │  │
-│  │ refresh  │   │ reconnect  │  │   send/receive)     │  │
-│  │ logout   │   │ send/recv  │  │                     │  │
-│  └────┬─────┘   └─────┬──────┘  └──────────┬──────────┘ │
-│       │               │                     │            │
-│  HTTP (REST)     WebSocket              HTTP (REST)      │
-│  /api/auth/*     ws://host:8080         /api/media/*     │
-└───────┼───────────────┼─────────────────────┼────────────┘
-        │               │                     │
-┌───────┼───────────────┼─────────────────────┼────────────┐
-│       ▼               ▼                     ▼            │
-│              BACKEND (Node.js + Express)                 │
-│                                                          │
-│  ┌────────────┐  ┌──────────────┐  ┌──────────────────┐ │
-│  │ Auth       │  │ WebSocket    │  │ Media Controller │ │
-│  │ Controller │  │ Handlers     │  │                  │ │
-│  │            │  │              │  │ upload → multer  │ │
-│  │ register   │  │ join         │  │ → cloudinary     │ │
-│  │ login      │  │ chat         │  │ → response URL   │ │
-│  │ sendOtp    │  │ switchRoom   │  │                  │ │
-│  │ verifyOtp  │  │ disconnect   │  │                  │ │
-│  │ refresh    │  │              │  │                  │ │
-│  └─────┬──────┘  └──────┬───────┘  └────────┬─────────┘ │
-│        │                │                    │           │
-│        ▼                ▼                    ▼           │
-│  ┌──────────┐    ┌──────────┐        ┌────────────┐     │
-│  │ MongoDB  │    │  Users   │        │ Cloudinary │     │
-│  │          │    │  Map()   │        │   (CDN)    │     │
-│  │ users    │    │ (in-mem) │        └────────────┘     │
-│  │ otps     │    └──────────┘                           │
-│  │ messages │                                            │
-│  └──────────┘                                            │
-└──────────────────────────────────────────────────────────┘
-```
-
----
-
 ## 📁 Project Structure
 
 ```
