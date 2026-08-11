@@ -51,24 +51,9 @@ All media is uploaded to **Cloudinary** via protected REST endpoints, then the r
 | **Audio** | `POST /api/media/upload/audio` | 10 MB | MP3, WAV, OGG, WebM, M4A | Inline `<audio>` player with controls |
 | **Document** | `POST /api/media/upload/document` | 10 MB | PDF, DOC, DOCX | Styled file card with name, size (MB), and open-in-new-tab link |
 
-### UI & Design
-- **Dark-Mode Theme** — Premium dark interface with `#050505` background, subtle borders, and layered shadows.
-- **Animated Auth Page** — Radial gradient background animation on the login/register screen.
-- **Glassmorphic Overlays** — Image download button uses backdrop-blur and semi-transparent backgrounds.
-- **Responsive Layout** — Sidebar collapses into a mobile drawer below 860px, with a backdrop overlay. Further layout adjustments at 620px.
-- **Branded OTP Emails** — HTML email template with styled "Echo" logo, formatted OTP code box, security warnings, and footer branding.
-
 ---
 
 ## 🛠️ Tech Stack
-
-### Frontend
-| Technology | Purpose |
-|:---|:---|
-| React 19 | Component-based UI library |
-| Vite 8 | Build tool and dev server |
-| Vanilla CSS | Custom design system (no CSS framework) |
-| Browser WebSocket API | Real-time communication |
 
 ### Backend
 | Technology | Purpose |
@@ -432,7 +417,3 @@ Navigate to `http://localhost:5173`. You'll see the Echo login page. Register a 
 To test real-time messaging, open a second browser tab, log in with a different account, and join the same room.
 
 ---
-
-## 🛡️ License
-
-This project is open source and available under the [ISC License](LICENSE).
