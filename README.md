@@ -18,7 +18,6 @@ A full-stack real-time chat application built with the **MERN stack** (MongoDB, 
 - [Getting Started](#-getting-started)
 - [Environment Variables](#-environment-variables)
 - [Running the Application](#-running-the-application)
-- [License](#-license)
 
 ---
 
