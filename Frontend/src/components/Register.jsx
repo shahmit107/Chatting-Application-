@@ -21,6 +21,14 @@ export function Register({ onRegisterSuccess, onToggleMode }) {
       setError("Please fill in all fields.");
       return;
     }
+    if (!displayName.trim()) {
+      setError("Display name cannot be blank.");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      setError("Please enter a valid email address.");
+      return;
+    }
 
     setError("");
     setSuccess("");

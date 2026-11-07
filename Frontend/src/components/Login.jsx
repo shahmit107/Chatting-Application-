@@ -81,6 +81,10 @@ export function Login({ onLoginSuccess, onToggleMode }) {
       setError("Please fill in all fields.");
       return;
     }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      setError("Please enter a valid email address.");
+      return;
+    }
 
     setError("");
     setLoading(true);
@@ -121,6 +125,10 @@ export function Login({ onLoginSuccess, onToggleMode }) {
     e?.preventDefault();
     if (!email.trim()) {
       setError("Please enter your email address.");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      setError("Please enter a valid email address.");
       return;
     }
 
