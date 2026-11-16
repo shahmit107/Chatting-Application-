@@ -11,6 +11,7 @@ import { sendEmail } from "../services/email.service.js";
 import { otpGenerator, getOtpHtml } from "../utils/utils.otpGenerator.js";
 import otpModel from "../model/model.otp.js";
 import { completeLogin } from "../utils/utils.completeLogin.js";
+
 export async function register(req, res) {
   try {
     const { userName, email, password } = req.body;
@@ -256,7 +257,7 @@ export async function getMe(req, res) {
 export async function sendOtp(req, res) {
   try {
     const email = req.body?.email;
-    const user = await userModel.findOne({ email }); // not for stroing in db
+    const user = await userModel.findOne({ email }); // not for storing in db
     // its for checking whether present in main db or not.
 
     if (!user) {
@@ -269,7 +270,7 @@ export async function sendOtp(req, res) {
     }
     const otp_user = await otpModel.findOne({ email });
 
-    if (otp_user) {
+    if (otp_user) { // if new otp user then the whole block is skipped
       if (otp_user.blockedUntil > new Date()) {
         return res.status(201).send({
           type: "error",
@@ -282,7 +283,7 @@ export async function sendOtp(req, res) {
       if (otp_user.attempts >= 5) {
         otp_user.blockedUntil = new Date(Date.now() + 3 * 60 * 1000);
         otp_user.attempts = 0;
-        await otp_user.save();
+        await otp_user.save(); // this line saves to the mongodb
         return res.status(201).send({
           type: "error",
           payload: {

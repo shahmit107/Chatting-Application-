@@ -29,7 +29,7 @@ export async function join(message, ws, users) {
 
   ws.roomId = roomId;
 
-  if (!users.has(roomId)) {
+  if (!users.has(roomId)) { // if the room is not present then create one and make it's entry
     users.set(roomId, new Set());
   }
   users.get(roomId).add(ws);

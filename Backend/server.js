@@ -23,12 +23,13 @@ try {
   app.use("/api/auth/", authRouter)
   app.use("/api/media/upload", mediaRouter)
 
+  await connectDb();
+
   const server = app.listen(config.PORT, "0.0.0.0", ()=> {
     console.log("SERVER IS RUNNING ON 8080")
   })
   const wss = new WebSocketServer({server});
   registerSocketApp(wss);
-  await connectDb();
 } catch (err) {
   console.log("SERVER ERROR: " + err);
 }

@@ -12,24 +12,32 @@ export default async function authMiddleware(req, res, next) {
   try {
     const accessToken = req.headers.authorization?.split(" ")[1];
 
-    const isTokenValid = jwt.verify(accessToken, config.ACCESS_TOKEN_SECRET);
-
-    const isUserPresent = await userModel.findById(isTokenValid.userId).lean();
-
-    if (!isUserPresent.isVerified) {
+    if (!accessToken) {
       return res.status(401).send({
         type: "error",
-        payload: {
-          message: "User is not verified",
-        },
+        payload: { message: "Access token missing" },
       });
     }
+
+    const isTokenValid = jwt.verify(accessToken, config.ACCESS_TOKEN_SECRET); // this automatically checks for the time expiry, the work is done internally by the verify function.
+    // this doesn't return the bool vals but throws err on invalid token.
+
+    const isUserPresent = await userModel.findById(isTokenValid.userId).lean();
 
     if (!isUserPresent) {
       return res.status(401).send({
         type: "error",
         payload: {
           message: "User not found",
+        },
+      });
+    }
+
+    if (!isUserPresent.isVerified) {
+      return res.status(401).send({
+        type: "error",
+        payload: {
+          message: "User is not verified",
         },
       });
     }

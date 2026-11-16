@@ -8,7 +8,7 @@ const mediaRouter = Router();
 // POST /api/media/upload/image → returns image URL
 mediaRouter.post("/image", authMiddleware, uploadImage.single("image"), mediaController.uploadImage)
 
-// // POST /api/media/upload/video → returns video URL
+// POST /api/media/upload/video → returns video URL
 mediaRouter.post("/video", uploadVideo.single("video"), mediaController.uploadVideo)
 
 // POST /api/media/upload/audio → returns audio URL

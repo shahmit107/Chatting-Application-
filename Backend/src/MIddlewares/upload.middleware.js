@@ -21,21 +21,21 @@ const imageFilter = (req, file, cb) => {
 };
 
 const videoFilter = (req, file, cb) => {
-  if (!allowedImageMimeTypes.includes(file.mimetype)) {
+  if (!allowedVideoMimeTypes.includes(file.mimetype)) {
     return cb(new Error("Only mp4, webm, and ogg videos are allowed"), false);
   }
   cb(null, true);
 };
 
 const documentFilter = (req, file, cb) => {
-  if (!allowedImageMimeTypes.includes(file.mimetype)) {
+  if (!allowedDocMimeTypes.includes(file.mimetype)) {
     return cb(new Error("Only pdf, msword, and document docs are allowed"), false);
   }
   cb(null, true);
 };
 
 const audioFilter = (req, file, cb) => {
-  if (!allowedImageMimeTypes.includes(file.mimetype)) {
+  if (!allowedAudioMimeTypes.includes(file.mimetype)) {
     return cb(new Error("Only mp3, wav, webm and ogg audio are allowed"), false);
   }
   cb(null, true);
@@ -43,25 +43,25 @@ const audioFilter = (req, file, cb) => {
 
 export const uploadImage = multer({
   storage,
-  imageFilter,
+  fileFilter: imageFilter,
   limits: { fileSize: 5 * 1024 * 1024,} // 5MB 
 });
 
 export const uploadVideo = multer({
   storage,
-  videoFilter,
+  fileFilter: videoFilter,
   limits: { fileSize: 50 * 1024 * 1024 } // Limits files to 50MB max
 });
 
 export const uploadDocument = multer({
   storage,
-  documentFilter,
+  fileFilter: documentFilter,
   limits: { fileSize: 10 * 1024 * 1024 } // Limits files to 10MB max
 });
 
 export const uploadAudio = multer({
   storage,
-  audioFilter,
+  fileFilter: audioFilter,
   limits: { fileSize: 15 * 1024 * 1024 } // Limits files to 15MB max
 });
 
